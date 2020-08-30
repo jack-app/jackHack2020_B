@@ -12,7 +12,7 @@ public class UserNameRegister : MonoBehaviour
 
     public void OnClick()
     {
-        NiftyUser.CreateUser(yourName.text);
-        SceneManager.LoadScene("Main");
+        NiftyUser.CreateUser(yourName.text, () => SceneManager.LoadScene("Main"));
+        
     }
 }

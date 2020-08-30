@@ -8,10 +8,12 @@ public class AddParticipant : MonoBehaviour
     public InputField inputField;
     public Dictionary<string,string> participants = new Dictionary<string, string>();
     public Text participantName;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        participants.Add(NiftyUser.GetUserID(), NiftyUser.GetUserName());
+        participantName.text += NiftyUser.GetUserName() + "\n";
     }
 
     // Update is called once per frame
@@ -23,6 +25,8 @@ public class AddParticipant : MonoBehaviour
     public void OnClick()
     {
         string userId = inputField.text;
+
+        
 
         if (Data.users.ContainsKey(userId) && !participants.ContainsKey(userId))
         {

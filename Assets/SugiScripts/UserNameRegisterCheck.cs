@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using NCMB;
 
 public class UserNameRegisterCheck : MonoBehaviour
 {
+    public Text userName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +16,10 @@ public class UserNameRegisterCheck : MonoBehaviour
         if (id == "")
         {
             SceneManager.LoadScene("UserNameRegister");
+        }else
+        {
+            NCMBObject c = NiftyUser.currentUser;
+            userName.text = NiftyUser.GetUserName();
         }
     }
 
