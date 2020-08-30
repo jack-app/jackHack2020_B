@@ -8,7 +8,7 @@ public class UserNameRegisterCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string id = PlayerPrefs.GetString("ID");
+        string id = PlayerPrefs.GetString("UserID");
         if (id == "")
         {
             SceneManager.LoadScene("UserNameRegister");
