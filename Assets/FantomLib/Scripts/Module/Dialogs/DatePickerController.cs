@@ -38,8 +38,8 @@ namespace FantomLib
         //{
 
         //}
-        
-        
+
+
         //Show dialog
         public void Show()
         {

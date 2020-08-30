@@ -7,17 +7,14 @@ public class Register : MonoBehaviour
 {
     public DateTime date;
     public String planName;
-    public List<User> participants;
+    public Dictionary<string,string> participants;
 
-}
-
-public class User 
-{
-    public String userName, userId;
-
-    public User(String username, String userid)
+    public Register(string _planName,DateTime _date, Dictionary<string,string> _participants)
     {
-        userName = username;
-        userId=userid;
+        planName = _planName;
+        date = _date;
+        participants = _participants;
     }
+
 }
+

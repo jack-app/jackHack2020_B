@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Data : MonoBehaviour
 {
-    public static List<User> friends=new List<User>();
+    public static Dictionary<string, string> users = new Dictionary<string, string>();
     public static List<Register> registers = new List<Register>();
 }
