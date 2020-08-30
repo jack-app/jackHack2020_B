@@ -93,6 +93,11 @@ public static class NiftyUtility
         });
     }
 
+    public static List<NiftyPlan> GetPlan()
+    {
+        return NiftyPlanList.Instance.GetPlan();
+    }
+
     public static void DeletePlan(string planID, UnityAction callback)
     {
         NCMBObject planObj = new NCMBObject("Plan");

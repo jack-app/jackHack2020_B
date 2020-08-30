@@ -72,6 +72,7 @@ public class NiftyPlanList : MonoBehaviour
         NiftyPlan plan = new NiftyPlan();
         plan.planID = planID;
         plan.planName = planName;
+        plan.planTime = scheduleTime;
         plan.scheduleTime = scheduleTime.ToString();
         plan.randomKey = randomKey;
 
@@ -109,6 +110,7 @@ public class NiftyPlanList : MonoBehaviour
             streamReader.Close();
 
             niftyPlan = JsonUtility.FromJson<PlanList>(data);
+            niftyPlan.planList.ForEach(x => x.planTime = System.DateTime.Parse(x.scheduleTime));
         }
         else
         {
@@ -139,5 +141,6 @@ public class NiftyPlan
     public string planID;
     public string planName;
     public string scheduleTime;
+    public System.DateTime planTime;
     public string randomKey;
 }
