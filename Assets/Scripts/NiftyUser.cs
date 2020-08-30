@@ -60,7 +60,7 @@ public class NiftyUser : MonoBehaviour
 
     public static int GetMuscleItemID()
     {
-        return (int)currentUser["MuscleItemID"];
+        return System.Convert.ToInt32(currentUser["MuscleItemID"]);
     }
 
     public static void CreateUser(string name, UnityAction callback = null)
