@@ -26,6 +26,49 @@ public static class NiftyUtility
         });
     }
 
+    public static void StartTraining(string planID, UnityAction callback = null)
+    {
+        SetRandomMuscleItem(planID, callback);
+    }
+
+    public static void SetRandomMuscleItem(string planID, UnityAction callback = null)
+    {
+        var script = new NCMBScript("ShuffleItem.js", NCMBScript.MethodType.POST);
+        Dictionary<string, object> header = new Dictionary<string, object>() { { "planid", planID } };
+        script.ExecuteAsync(header, null, null, (byte[] result, NCMBException e) =>
+        {
+            if (e != null)
+            {
+                Debug.LogError(e);
+                throw e;
+            }
+            else
+            {
+                Debug.Log(System.Text.Encoding.ASCII.GetString(result));
+                DeletePlan(planID, callback);
+            }
+        });
+    }
+
+    public static void GetNewItem(UnityAction<int> callback = null)
+    {
+        NCMBObject user = new NCMBObject("User");
+        user.ObjectId = NiftyUser.GetUserID();
+        user.FetchAsync((NCMBException e) =>
+        {
+            if (e != null)
+            {
+                Debug.LogError(e);
+                throw e;
+            }
+            else
+            {
+                NiftyUser.currentUser = user;
+                callback?.Invoke(System.Convert.ToInt32(user["MuscleItemID"]));
+            }
+        });
+    }
+
     public static void SetPlan(string planName, System.DateTime scheduleTime, List<string> teamUserList, UnityAction callback = null)
     {
         NCMBObject planObj = new NCMBObject("Plan");
@@ -50,7 +93,7 @@ public static class NiftyUtility
         });
     }
 
-    /*public static void DeletePlan(string planID)
+    public static void DeletePlan(string planID, UnityAction callback)
     {
         NCMBObject planObj = new NCMBObject("Plan");
         planObj.ObjectId = planID;
@@ -64,9 +107,10 @@ public static class NiftyUtility
             else
             {
                 NiftyPlanList.Instance.DeletePlan(planID);
+                callback?.Invoke();
             }
         });
-    }*/
+    }
 
     public static void IsValidPlanID(string inputValue, UnityAction<bool> callback = null)
     {
@@ -85,6 +129,7 @@ public static class NiftyUtility
                 return;
             }
             var userList = (ArrayList)objList[0]["userList"];
+
             callback?.Invoke(userList.Contains(NiftyUser.GetUserID()));
             return;
         });

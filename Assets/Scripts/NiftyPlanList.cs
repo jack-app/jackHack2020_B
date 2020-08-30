@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
+using NCMB;
 
 public class NiftyPlanList : MonoBehaviour
 {
     static NiftyPlanList _instance;
 
     string filePath;
+
+    public UnityAction<string, string, string> startTrainingEvent;
 
     PlanList niftyPlan;
 
@@ -36,11 +41,30 @@ public class NiftyPlanList : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         filePath = Application.persistentDataPath + "/" + "niftyPlan.json";
+
     }
 
     private void Start()
     {
         Load();
+        foreach (var plan in niftyPlan.planList)
+        {
+            var timeDelta = System.DateTime.Parse(plan.scheduleTime) - System.DateTime.UtcNow;
+            Debug.Log(timeDelta);
+            StartCoroutine(PlanTimer((float)timeDelta.TotalSeconds, plan));
+        }
+    }
+
+    IEnumerator PlanTimer(float time, NiftyPlan plan)
+    {
+        yield return new WaitForSeconds(time);
+
+        startTrainingEvent(plan.planID, plan.planName, plan.randomKey);
+    }
+
+    public List<NiftyPlan> GetPlan()
+    {
+        return niftyPlan.planList;
     }
 
     public void SavePlan(string planID, string planName, System.DateTime scheduleTime, string randomKey)
@@ -48,11 +72,21 @@ public class NiftyPlanList : MonoBehaviour
         NiftyPlan plan = new NiftyPlan();
         plan.planID = planID;
         plan.planName = planName;
-        plan.scheduleTime = scheduleTime;
+        plan.scheduleTime = scheduleTime.ToString();
         plan.randomKey = randomKey;
 
         niftyPlan.planList.Add(plan);
 
+        var timeDelta = scheduleTime - System.DateTime.UtcNow;
+        StartCoroutine(PlanTimer((float)timeDelta.TotalSeconds, plan));
+
+        Save();
+    }
+
+    public void DeletePlan(string planID)
+    {
+        var removeVal = niftyPlan.planList.SingleOrDefault(x => x.planID == planID);
+        niftyPlan.planList.Remove(removeVal);
         Save();
     }
 
@@ -82,6 +116,15 @@ public class NiftyPlanList : MonoBehaviour
             niftyPlan.planList = new List<NiftyPlan>();
         }
     }
+
+    [ContextMenu("Delete PlanData")]
+    private void DeletePlanData()
+    {
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+    }
 }
 
 [System.Serializable]
@@ -95,6 +138,6 @@ public class NiftyPlan
 {
     public string planID;
     public string planName;
-    public System.DateTime scheduleTime;
+    public string scheduleTime;
     public string randomKey;
 }
