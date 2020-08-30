@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 365748524}
   - component: {fileID: 365748523}
   - component: {fileID: 365748522}
+  - component: {fileID: 365748525}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -370,8 +371,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Onclick
+      - m_Target: {fileID: 365748525}
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -394,13 +395,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.27450982, g: 0, b: 0.043137256, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cccc47cec2e5cf241a2cbf1ced4bf6c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03ea72e6778b99847abae401d64783c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -418,6 +419,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365748520}
   m_CullTransparentMesh: 0
+--- !u!114 &365748525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365748520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bed43789257b5944ca73a6d25cf0f856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &435364520
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,13 +795,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.27450982, g: 0, b: 0.043137256, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cccc47cec2e5cf241a2cbf1ced4bf6c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03ea72e6778b99847abae401d64783c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1142,14 +1155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c65c5d46ad8c649823b2a823334ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facePower: 0
-  handPower: 0
-  chestPower: 0
-  absPower: 0
-  upperArmPower: 0
-  foreArmPower: 0
-  upperLegPower: 0
-  foreLegPower: 0
   face: 0
   hand: 0
   chest: 0

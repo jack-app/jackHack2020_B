@@ -6,9 +6,8 @@ using UnityEngine;
 public class MuscleController : MonoBehaviour
 {
 
-    public static Dictionary<string, int> muscleData = new Dictionary<string, int>() {
+    static Dictionary<string, int> muscleData = new Dictionary<string, int>() {
         {"face",0 },
-        {"body",0 },
         {"hand",0 },
         {"chest",0 },
         {"abs",0 },
@@ -18,6 +17,10 @@ public class MuscleController : MonoBehaviour
         {"foreLeg",0 }
 
     };
+
+
+
+
     
     //public static int facePower, handPower, chestPower, absPower, upperArmPower, foreArmPower, upperLegPower, foreLegPower;
     [HideInInspector]
@@ -47,16 +50,17 @@ public class MuscleController : MonoBehaviour
     private void Update()
     {
         SetMuscle();
+        //MuscleTraining("upperLeg", 1);
 
-        List<string> keyList = new List<string>(muscleData.Keys);
-        foreach (string key in keyList)
-        {
-            muscleData[key] += 1;
-        }
+        //List<string> keyList = new List<string>(muscleData.Keys);
+        //foreach (string key in keyList)
+        //{
+        //    muscleData[key] += 1;
+        //}
     }
 
-    
 
+    int maxsize = 0;
 
     void SetMuscle()
     {
@@ -66,11 +70,11 @@ public class MuscleController : MonoBehaviour
         skin.SetBlendShapeWeight(hand, 100-muscleData["hand"]);
         skin.SetBlendShapeWeight(upperArm, muscleData["upperArm"]);
         skin.SetBlendShapeWeight(foreArm, muscleData["foreArm"]);
-        skin.SetBlendShapeWeight(shrinkArm, 100 - (muscleData["upperArm"] + muscleData["foreArm"]) / 2);
+        skin.SetBlendShapeWeight(shrinkArm, Mathf.Max(-maxsize, 100 - (muscleData["upperArm"] + muscleData["foreArm"]) / 2));
         skin.SetBlendShapeWeight(upperLeg, muscleData["upperLeg"]);
         skin.SetBlendShapeWeight(foreLeg, muscleData["foreLeg"]);
-        skin.SetBlendShapeWeight(shrinkLeg, 100 - (muscleData["upperLeg"] + muscleData["foreLeg"]) / 2);
-        skin.SetBlendShapeWeight(shrinkBody, 100 - (muscleData["chest"] + muscleData["abs"]) / 2);
+        skin.SetBlendShapeWeight(shrinkLeg, Mathf.Max(-maxsize, 100 - (muscleData["upperLeg"] + muscleData["foreLeg"]) / 2));
+        skin.SetBlendShapeWeight(shrinkBody, Mathf.Max(-maxsize, 100 - (muscleData["chest"] + muscleData["abs"]) / 2));
 
 
         foreach(KeyValuePair<string,int> pair in muscleData)
@@ -79,6 +83,24 @@ public class MuscleController : MonoBehaviour
         }
 
 
+    }
+
+    public static void MuscleLoad()
+    {
+        List<string> keyList = new List<string>(muscleData.Keys);
+
+        foreach (string key in keyList)
+        {
+            muscleData[key] = PlayerPrefs.GetInt(key);
+            print(muscleData[key]+key);
+        }
+    }
+
+
+
+    public static void MuscleTraining(string key,int effect)
+    {
+        muscleData[key] += effect;
     }
 
 

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UserNameRegister.unity
     guid: 8db8075100b05aa4dbf8a6d2b187fb89
+  - enabled: 1
+    path: Assets/Scenes/PlanList.unity
+    guid: 94738738457e80741b42e78e70a88d2c
   m_configObjects: {}
