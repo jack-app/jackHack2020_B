@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NCMB;
 
 public class NiftySample : MonoBehaviour
 {
@@ -14,5 +15,10 @@ public class NiftySample : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetObject()
+    {
+        NiftyUtility.SetPlan("jackHack2020の会議", System.DateTime.UtcNow.AddMinutes(10), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm" });
     }
 }
