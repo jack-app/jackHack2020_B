@@ -38,10 +38,10 @@ public class MuscleController : MonoBehaviour
         shrinkLeg = skin.sharedMesh.GetBlendShapeIndex("ShrinkLeg");
         chest = skin.sharedMesh.GetBlendShapeIndex("ChestMuscle");
         abs = skin.sharedMesh.GetBlendShapeIndex("AbsMuscle");
-        upperArm = skin.sharedMesh.GetBlendShapeIndex("UpperArm");
-        foreArm= skin.sharedMesh.GetBlendShapeIndex("ForeArm");
-        upperLeg = skin.sharedMesh.GetBlendShapeIndex("UpperLeg");
-        foreLeg = skin.sharedMesh.GetBlendShapeIndex("ForeLeg");
+        upperArm = skin.sharedMesh.GetBlendShapeIndex("UpperArmMuscle");
+        foreArm= skin.sharedMesh.GetBlendShapeIndex("ForeArmMuscle");
+        upperLeg = skin.sharedMesh.GetBlendShapeIndex("UpperLegMuscle");
+        foreLeg = skin.sharedMesh.GetBlendShapeIndex("ForeLegMuscle");
 
 
         SetMuscle();
@@ -53,11 +53,11 @@ public class MuscleController : MonoBehaviour
         SetMuscle();
         //MuscleTraining("upperLeg", 1);
 
-        List<string> keyList = new List<string>(muscleData.Keys);
-        foreach (string key in keyList)
-        {
-            muscleData[key] += 1;
-        }
+        //List<string> keyList = new List<string>(muscleData.Keys);
+        //foreach (string key in keyList)
+        //{
+        //    muscleData[key] += 1;
+        //}
     }
 
 
@@ -85,7 +85,7 @@ public class MuscleController : MonoBehaviour
         size = Mathf.Max(1, size);
         size = Mathf.Min(maxsize*7, size);
         
-        muscleTransform.localScale = Vector3.one* 4 /(1.0f+(float)size*0.001f);
+        muscleTransform.localScale = Vector3.one* 1 /(1.0f+(float)size*0.001f);
 
 
         foreach (KeyValuePair<string,int> pair in muscleData)
