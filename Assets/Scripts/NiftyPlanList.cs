@@ -12,7 +12,7 @@ public class NiftyPlanList : MonoBehaviour
 
     string filePath;
 
-    public UnityAction<string, string, string> startTrainingEvent;
+    public UnityAction<string, string, string> startTrainingEvent = null;
 
     PlanList niftyPlan;
 
@@ -59,7 +59,7 @@ public class NiftyPlanList : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        startTrainingEvent(plan.planID, plan.planName, plan.randomKey);
+        startTrainingEvent?.Invoke(plan.planID, plan.planName, plan.randomKey);
     }
 
     public List<NiftyPlan> GetPlan()
