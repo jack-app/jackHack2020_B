@@ -20,7 +20,7 @@ public class RegisterPlan : MonoBehaviour
             participantsId.Add(key);
         }
         //Data.registers.Add(new Register(planName.text, date, participants));
-        NiftyUtility.SetPlan(planName.text,date,participantsId);
-        SceneManager.LoadScene("Main");
+        NiftyUtility.SetPlan(planName.text,date,participantsId,()=> { SceneManager.LoadScene("Main"); });
+        
     }
 }
