@@ -27,6 +27,7 @@ public class MuscleController : MonoBehaviour
     public int face, hand, chest, abs, upperArm, foreArm, upperLeg, foreLeg, shrinkArm,shrinkLeg, shrinkBody;
 
     public SkinnedMeshRenderer skin;
+    public Transform muscleTransform;
 
     private void Start()
     {
@@ -52,15 +53,15 @@ public class MuscleController : MonoBehaviour
         SetMuscle();
         //MuscleTraining("upperLeg", 1);
 
-        //List<string> keyList = new List<string>(muscleData.Keys);
-        //foreach (string key in keyList)
-        //{
-        //    muscleData[key] += 1;
-        //}
+        List<string> keyList = new List<string>(muscleData.Keys);
+        foreach (string key in keyList)
+        {
+            muscleData[key] += 1;
+        }
     }
 
 
-    int maxsize = 0;
+    int maxsize = 300;
 
     void SetMuscle()
     {
@@ -77,7 +78,17 @@ public class MuscleController : MonoBehaviour
         skin.SetBlendShapeWeight(shrinkBody, Mathf.Max(-maxsize, 100 - (muscleData["chest"] + muscleData["abs"]) / 2));
 
 
-        foreach(KeyValuePair<string,int> pair in muscleData)
+
+        int size = muscleData["abs"] + muscleData["chest"] + muscleData["hand"] + muscleData["upperArm"] + muscleData["foreArm"] + muscleData["upperLeg"] + muscleData["foreLeg"] - 700;
+
+
+        size = Mathf.Max(1, size);
+        size = Mathf.Min(maxsize*7, size);
+        
+        muscleTransform.localScale = Vector3.one* 4 /(1.0f+(float)size*0.001f);
+
+
+        foreach (KeyValuePair<string,int> pair in muscleData)
         {
             PlayerPrefs.SetInt(pair.Key, pair.Value);
         }
