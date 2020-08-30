@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4337469349176958}
   - component: {fileID: 114294197998801602}
   - component: {fileID: 3845541050176837751}
+  - component: {fileID: 1995656357360880925}
   m_Layer: 0
   m_Name: NCMBManager
   m_TagString: Untagged
@@ -54,5 +55,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a58546e9b9e84ed42ab726eccc87a645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1995656357360880925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082003255284418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a617f8d23292d774ab90f7c01eeb97f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
