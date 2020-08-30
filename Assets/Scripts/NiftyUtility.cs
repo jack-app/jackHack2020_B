@@ -7,7 +7,7 @@ using NCMB;
 
 public static class NiftyUtility
 {
-    public static void GetAllUser(UnityAction<List<string>> callback)
+    public static void GetAllUser(UnityAction<Dictionary<string,string>> callback = null)
     {
         NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject>("User");
         query.WhereNotEqualTo("UserName", NiftyUser.currentUser["UserName"]);
@@ -20,13 +20,13 @@ public static class NiftyUtility
             }
             else
             {
-                var userList = objList.Select(x => x["UserName"].ToString()).ToList();
-                callback(userList);
+                var userDic = objList.ToDictionary(x => x.ObjectId, x => x["UserName"].ToString());
+                callback?.Invoke(userDic);
             }
         });
     }
 
-    public static void SetPlan(string planName, System.DateTime scheduleTime, List<string> teamUserList)
+    public static void SetPlan(string planName, System.DateTime scheduleTime, List<string> teamUserList, UnityAction callback = null)
     {
         NCMBObject planObj = new NCMBObject("Plan");
         planObj.Add("planName", planName);
@@ -45,7 +45,48 @@ public static class NiftyUtility
             else
             {
                 SavePlan(planObj);
+                callback?.Invoke();
             }
+        });
+    }
+
+    /*public static void DeletePlan(string planID)
+    {
+        NCMBObject planObj = new NCMBObject("Plan");
+        planObj.ObjectId = planID;
+        planObj.DeleteAsync((NCMBException e) =>
+        {
+            if (e != null)
+            {
+                Debug.LogError(e);
+                throw e;
+            }
+            else
+            {
+                NiftyPlanList.Instance.DeletePlan(planID);
+            }
+        });
+    }*/
+
+    public static void IsValidPlanID(string inputValue, UnityAction<bool> callback = null)
+    {
+        NCMBQuery<NCMBObject> query = new NCMBQuery<NCMBObject>("Plan");
+        query.WhereEqualTo("randKey", inputValue);
+        query.FindAsync((List<NCMBObject> objList, NCMBException e) =>
+        {
+            if (e != null)
+            {
+                Debug.LogError(e);
+                throw e;
+            }
+            if (objList.Count == 0)
+            {
+                callback?.Invoke(false);
+                return;
+            }
+            var userList = (ArrayList)objList[0]["userList"];
+            callback?.Invoke(userList.Contains(NiftyUser.GetUserID()));
+            return;
         });
     }
 
@@ -53,4 +94,5 @@ public static class NiftyUtility
     {
         NiftyPlanList.Instance.SavePlan(planObject.ObjectId, planObject["planName"].ToString(), (System.DateTime)planObject["scheduleTime"], planObject["randKey"].ToString());
     }
+
 }
