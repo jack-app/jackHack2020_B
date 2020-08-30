@@ -49,7 +49,7 @@ public class NiftyPlanList : MonoBehaviour
         Load();
         foreach (var plan in niftyPlan.planList)
         {
-            var timeDelta = System.DateTime.Parse(plan.scheduleTime) - System.DateTime.UtcNow;
+            var timeDelta = plan.planTime - System.DateTime.UtcNow;
             Debug.Log(timeDelta);
             StartCoroutine(PlanTimer((float)timeDelta.TotalSeconds, plan));
         }
@@ -110,7 +110,10 @@ public class NiftyPlanList : MonoBehaviour
             streamReader.Close();
 
             niftyPlan = JsonUtility.FromJson<PlanList>(data);
-            niftyPlan.planList.ForEach(x => x.planTime = System.DateTime.Parse(x.scheduleTime));
+            for(int i = 0; i < niftyPlan.planList.Count; i++)
+            {
+                niftyPlan.planList[i].planTime = System.DateTime.Parse(niftyPlan.planList[i].scheduleTime);
+            }
         }
         else
         {
