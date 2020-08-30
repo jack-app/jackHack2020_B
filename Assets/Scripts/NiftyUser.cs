@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using NCMB;
 
 public class NiftyUser : MonoBehaviour
@@ -62,7 +63,7 @@ public class NiftyUser : MonoBehaviour
         return (int)currentUser["MuscleItemID"];
     }
 
-    public static void CreateUser(string name)
+    public static void CreateUser(string name, UnityAction callback = null)
     {
         NCMBObject user = new NCMBObject("User");
 
@@ -80,6 +81,7 @@ public class NiftyUser : MonoBehaviour
                 currentUser = user;
                 Debug.LogFormat("User {0}({1}) Sign up", user["UserName"], user.ObjectId);
                 PlayerPrefs.SetString("UserID", user.ObjectId);
+                callback?.Invoke();
             }
         });
     }
