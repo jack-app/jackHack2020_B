@@ -31,7 +31,9 @@ public class Training : MonoBehaviour
         {1,"upperArm"},
         {0,"foreArm"},
         {3,"upperLeg"},
-        {2,"foreLeg"}
+        {2,"foreLeg"},
+        {9,"foreLeg" },
+        {7,"upperArm" }
     };
 
 
@@ -53,7 +55,7 @@ public class Training : MonoBehaviour
 
 
         muscleIndex = NiftyUser.GetMuscleItemID();
-        if (0 > muscleIndex || 9 < muscleIndex) { Debug.LogError("index is wrong"); return; }
+        if (0 > muscleIndex || 9 < muscleIndex) { Debug.LogError("index is wrong"); muscleIndex = 6; }
         trainingMuscle = muscleDic[muscleIndex];
         StartyTraining(muscleIndex);
 
