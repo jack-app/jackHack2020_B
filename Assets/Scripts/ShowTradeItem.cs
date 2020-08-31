@@ -25,7 +25,7 @@ public class ShowTradeItem : MonoBehaviour
 
     public void BackMenu()
     {
-        SceneManager.LoadScene("NiftyTest");
+        SceneManager.LoadScene("Main");
     }
  
 }

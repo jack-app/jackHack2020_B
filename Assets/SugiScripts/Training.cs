@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Animations;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Training : MonoBehaviour
 {
@@ -10,7 +11,30 @@ public class Training : MonoBehaviour
     public AnimationClip abs,chest,foreArm,foreLeg,upperArm,upperLeg,hand,face;
 
     Dictionary<string, AnimationClip> clipDic;
-    
+
+    public MuscleItemList muscleItemList;
+
+    public GameObject icon;
+    public Text trainingName;
+
+    int muscleIndex;
+
+    public MuscleController muscleController;
+    string trainingMuscle;
+
+    private Dictionary<int, string> muscleDic = new Dictionary<int, string>()
+    {
+        {8,"face"},
+        {6,"hand"},
+        {4,"chest" },
+        {5,"abs"},
+        {1,"upperArm"},
+        {0,"foreArm"},
+        {3,"upperLeg"},
+        {2,"foreLeg"}
+    };
+
+
     void Start()
     {
 
@@ -28,11 +52,12 @@ public class Training : MonoBehaviour
 
 
 
+        muscleIndex = NiftyUser.GetMuscleItemID();
+        if (0 > muscleIndex || 9 < muscleIndex) { Debug.LogError("index is wrong"); return; }
+        trainingMuscle = muscleDic[muscleIndex];
+        StartyTraining(muscleIndex);
 
-
-        TrainingAnimation("foreArm");
-
-        
+        Invoke("GoToTradeScene", 15);
     }
 
    
@@ -56,5 +81,47 @@ public class Training : MonoBehaviour
 
         anim.runtimeAnimatorController = overrideController;
     }
-    
+
+
+    void StartyTraining(int index)
+    {
+        
+        MuscleItemData data = muscleItemList.Get(index);
+        string trainingMuscle = muscleDic[index];
+        InvokeRepeating("Growing", 0, 0.1f);
+
+        GameObject newIcon = GameObject.Instantiate(data.prefab) ;
+        newIcon.transform.SetParent(icon.transform.parent);
+        newIcon.transform.localScale = icon.transform.localScale;
+        newIcon.transform.position = icon.transform.position;
+        Destroy(icon);
+
+        trainingName.text = data.trainingBodyName;
+
+        int arm = MuscleController.GetMuscle("upperArm") + MuscleController.GetMuscle("foreArm");
+        int leg = MuscleController.GetMuscle("upperLeg") + MuscleController.GetMuscle("foreLeg");
+        
+        if (arm > 40 && leg > 40)
+        {
+            TrainingAnimation(trainingMuscle);
+        }
+        else
+        {
+            anim.enabled = false;
+        }
+        MuscleController.MuscleSave();
+    }
+
+
+    void GoToTradeScene()
+    {
+        CancelInvoke("Growing");
+        SceneManager.LoadScene("TradeItem");
+    }
+
+    void Growing()
+    {
+        AddMuscle(trainingMuscle, 1);
+        muscleController.SetMuscle();
+    }
 }

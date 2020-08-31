@@ -50,9 +50,9 @@ public class MuscleController : MonoBehaviour
 
     private void Update()
     {
-        SetMuscle();
         //MuscleTraining("upperLeg", 1);
 
+        //SetMuscle();
         //List<string> keyList = new List<string>(muscleData.Keys);
         //foreach (string key in keyList)
         //{
@@ -63,7 +63,7 @@ public class MuscleController : MonoBehaviour
 
     int maxsize = 300;
 
-    void SetMuscle()
+    public void SetMuscle()
     {
         skin.SetBlendShapeWeight(face, 100-muscleData["face"]);
         skin.SetBlendShapeWeight(abs, muscleData["abs"]);
@@ -88,11 +88,8 @@ public class MuscleController : MonoBehaviour
         muscleTransform.localScale = Vector3.one* 1 /(1.0f+(float)size*0.001f);
 
 
-        foreach (KeyValuePair<string,int> pair in muscleData)
-        {
-            PlayerPrefs.SetInt(pair.Key, pair.Value);
-        }
 
+        MuscleSave();
 
     }
 
@@ -107,6 +104,14 @@ public class MuscleController : MonoBehaviour
         }
     }
 
+    public static void MuscleSave()
+    {
+        foreach (KeyValuePair<string, int> pair in muscleData)
+        {
+            PlayerPrefs.SetInt(pair.Key, pair.Value);
+        }
+    }
+
 
 
     public static void MuscleTraining(string key,int effect)
@@ -114,6 +119,11 @@ public class MuscleController : MonoBehaviour
         muscleData[key] += effect;
     }
 
+
+    public static int GetMuscle(string muscle)
+    {
+        return muscleData[muscle];
+    } 
 
 
     

@@ -10,7 +10,7 @@ public class CallPlan : MonoBehaviour
     public GameObject planPanel;
     public Text planText;
     public Text randomText;
-    public InputField textField;
+    //public InputField textField;
     public Button startButton;
     public GameObject errorText;
 
@@ -25,38 +25,42 @@ public class CallPlan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.UtcNow.AddSeconds(10), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f" });
+        NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.UtcNow.AddSeconds(10), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f", "LOhQmnue5EwC07jO" });
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void TrainingStart(string planID, string planName, string randomKey)
     {
         planPanel.SetActive(true);
-        planText.text = string.Format("{0}の時間だ！！", planName);
+        planText.text = string.Format("{0}\nの時間だ！！", planName);
         randomText.text = randomKey;
         if (startButton != null)
         {
-            startButton.onClick.AddListener(() => {
-                
+            startButton.onClick.AddListener(() =>
+            {
 
-                NiftyUtility.IsValidPlanID(textField.text, (flag) =>
-                {
-                    //if (flag)
-                    //{
-                        NiftyUtility.StartTraining(planID);
-                        SceneManager.LoadScene("Training");
-                        
-                    //}
-                    //else
-                    //{
-                    //    errorText.SetActive(true);
-                    //}
-                });
+
+                NiftyUtility.StartTraining(planID);
+                SceneManager.LoadScene("Training");
+
+                //NiftyUtility.IsValidPlanID(textField.text, (flag) =>
+                //{
+                //    if (flag)
+                //    {
+                //        NiftyUtility.StartTraining(planID);
+                //        SceneManager.LoadScene("Training");
+
+                //    }
+                //    else
+                //    {
+                //        errorText.SetActive(true);
+                //    }
+                //});
             });
         }
 
