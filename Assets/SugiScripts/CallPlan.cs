@@ -25,7 +25,7 @@ public class CallPlan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.UtcNow.AddSeconds(10), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f", "LOhQmnue5EwC07jO" });
+        
     }
 
     // Update is called once per frame
@@ -33,6 +33,12 @@ public class CallPlan : MonoBehaviour
     {
 
     }
+
+    public void PlanSetTest()
+    {
+        NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.Now.AddSeconds(1), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f", "LOhQmnue5EwC07jO" });
+    }
+
 
     private void TrainingStart(string planID, string planName, string randomKey)
     {

@@ -49,7 +49,7 @@ public class NiftyPlanList : MonoBehaviour
         Load();
         foreach (var plan in niftyPlan.planList)
         {
-            var timeDelta = plan.planTime - System.DateTime.UtcNow;
+            var timeDelta = plan.planTime - System.DateTime.Now;
             Debug.Log(timeDelta);
             StartCoroutine(PlanTimer((float)timeDelta.TotalSeconds, plan));
         }
@@ -78,7 +78,7 @@ public class NiftyPlanList : MonoBehaviour
 
         niftyPlan.planList.Add(plan);
 
-        var timeDelta = scheduleTime - System.DateTime.UtcNow;
+        var timeDelta = scheduleTime - System.DateTime.Now;
         StartCoroutine(PlanTimer((float)timeDelta.TotalSeconds, plan));
 
         Save();

@@ -8,7 +8,7 @@ public class InputMuscleID : MonoBehaviour
 {
 
     public GameObject panel;
-    public Button button;
+    public Button okButton,returnButton;
     public InputField inputField;
     public GameObject errorPanel;
 
@@ -28,7 +28,7 @@ public class InputMuscleID : MonoBehaviour
     public void OnClick()
     {
         panel.SetActive(true);
-        button.onClick.AddListener(() =>
+        okButton.onClick.AddListener(() =>
         {
             NiftyUtility.IsValidPlanID(inputField.text, (flag) =>
             {
@@ -41,6 +41,13 @@ public class InputMuscleID : MonoBehaviour
                     errorPanel.SetActive(true);
                 }
             });
+        });
+
+        returnButton.onClick.AddListener(() =>
+        {
+            okButton.onClick.RemoveAllListeners();
+            returnButton.onClick.RemoveAllListeners();
+            panel.SetActive(false);
         });
     }
 }

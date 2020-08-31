@@ -123,10 +123,30 @@ public class MuscleController : MonoBehaviour
     public static int GetMuscle(string muscle)
     {
         return muscleData[muscle];
-    } 
+    }
 
 
-    
+    public void ResetDefaultData()
+    {
+        List<string> list = new List<string>(muscleData.Keys);
+        foreach (string muscle in list)
+        {
+            muscleData[muscle] = 0;
+        }
+        SetMuscle();
 
+    }
+
+
+    public void SetDefaultData()
+    {
+        List<string> list = new List<string>( muscleData.Keys);
+        foreach(string muscle in list)
+        {
+            muscleData[muscle] += 5;
+        }
+        SetMuscle();
+        
+    }
 
 }
