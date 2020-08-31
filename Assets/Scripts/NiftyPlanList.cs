@@ -114,6 +114,7 @@ public class NiftyPlanList : MonoBehaviour
             {
                 niftyPlan.planList[i].planTime = System.DateTime.Parse(niftyPlan.planList[i].scheduleTime);
             }
+            
         }
         else
         {
