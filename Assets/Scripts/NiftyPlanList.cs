@@ -112,8 +112,12 @@ public class NiftyPlanList : MonoBehaviour
             niftyPlan = JsonUtility.FromJson<PlanList>(data);
             for(int i = 0; i < niftyPlan.planList.Count; i++)
             {
-                niftyPlan.planList[i].planTime = System.DateTime.Parse(niftyPlan.planList[i].scheduleTime);
+                if(niftyPlan.planList[i].scheduleTime != "")
+                {
+                    niftyPlan.planList[i].planTime = System.DateTime.Parse(niftyPlan.planList[i].scheduleTime);
+                }
             }
+            
         }
         else
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using NCMB;
 
 public class NiftySample : MonoBehaviour
@@ -20,15 +21,15 @@ public class NiftySample : MonoBehaviour
         NiftyPlanList.Instance.startTrainingEvent = TrainingStart;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        var planlist = NiftyPlanList.Instance.GetPlan();
+        planlist.ForEach(x => Debug.Log(x.planTime));
     }
 
     public void SetObject()
     {
-        NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.UtcNow.AddSeconds(10), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f" });
+        NiftyUtility.SetPlan("jackHack2020の反省会", System.DateTime.UtcNow.AddSeconds(30), new List<string> { "vd9yNsXtCYkYzo1U", "dRQNcx7DitJHGIJm", "J2MfwrF42XT0BW4f" });
         //NiftyUtility.IsValidPlanID("50331", (flag) => Debug.Log(flag));
     }
 
@@ -40,7 +41,7 @@ public class NiftySample : MonoBehaviour
         if(startButton != null)
         {
             startButton.onClick.AddListener(() => {
-                NiftyUtility.StartTraining(planID, () => finishText.SetActive(true));
+                NiftyUtility.StartTraining(planID, () => SceneManager.LoadScene("TradeItem"));
             });
         }
         
